@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[oc]
+build/
+dist/
+*.egg-info
+.venv/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Secrets et journaux
+.env
+logs/
+
+# Système
+.DS_Store
+
+# Fichiers temporaires d'écriture atomique
+.*.tmp
+
+# Données personnelles : voix et profils des locuteurs (ne jamais publier sans consentement)
+data/audio/
+
+# --- Publication publique -----------------------------------------------------
+# Tant que l'accord de SIL Tchad n'est pas obtenu, décommenter ces lignes avant de
+# pousser vers un dépôt PUBLIC (cf. docs/05-ethique-licences.md) :
+data/raw/
+data/interim/
+data/processed/
+data/interim/notebook_v01
+data/sentences/phrases.csv
+data/validation/
+
+# Ancien contenu à supprimer après vérification
+_a_supprimer/
+.DS_Store
+
+
+# Fine-tuning : données générées depuis le corpus et adaptateurs entraînés (volumineux)
+data/finetune/
+models/
+
+# Jeu de données d'entraînement : entièrement régénéré par `td-arabic dataset` (dérivé du lexique SIL)
+data/dataset/
+
+# Données tabulaires et JSON : jamais publiés sur GitHub
+*.csv
+*.tsv
+*.json
+*.jsonl

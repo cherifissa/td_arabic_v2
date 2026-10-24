@@ -1,0 +1,978 @@
+# =============================================================================
+# Gabarits de génération de phrases (arabe tchadien latinisé <-> français)
+# =============================================================================
+#
+# Principe : chaque mot arabe tchadien (td) est un MOT-VEDETTE DU LEXIQUE.
+# Les formes fléchies (inaccompli conjugué, féminin des adjectifs) sont tirées
+# de la colonne `forms` du lexique, jamais inventées. Le français est écrit à
+# la main (conjugaison et accords corrects).
+#
+# Toutes les phrases produites ont le statut « brouillon » : elles doivent être
+# relues et validées par un locuteur avant enregistrement.
+#
+# Syntaxe des gabarits
+#   {P}        pronom sujet td (ana, inta, hu, hi)          — côté td seulement
+#   {V}        verbe : td = inaccompli conjugué à la personne {P} ; fr = forme
+#              conjuguée AVEC son sujet (« j'achète »)
+#   {X}        mot d'un slot X (td = mot-vedette)
+#   {@X}       td : X avec l'article défini (al- / l- après une voyelle)
+#   {X.cle}    fr : variante française de X (ex. {N.part} = « de la viande »)
+#   {A}        adjectif accordé avec le slot indiqué par `accord`
+#   @mot       td : article défini sur un mot écrit en dur (« @matar » -> al-matar)
+#
+# Le français et le td d'un même gabarit utilisent les mêmes slots.
+# =============================================================================
+
+personnes:
+  # Les 10 pronoms du cours (chapitre 9), tous présents dans le lexique. L'inaccompli n'est
+  # généré que pour ana/inta/hu/hi (seules personnes documentées), l'accompli pour les dix.
+  ana: { fr: je, genre: m, nombre: sg }
+  inta: { fr: tu, genre: m, nombre: sg }
+  inti: { fr: tu, genre: f, nombre: sg }
+  hu: { fr: il, genre: m, nombre: sg }
+  hi: { fr: elle, genre: f, nombre: sg }
+  aniina: { fr: nous, genre: m, nombre: pl }
+  intu: { fr: vous, genre: m, nombre: pl }
+  intan: { fr: vous, genre: f, nombre: pl }
+  humman: { fr: ils, genre: m, nombre: pl }
+  hinna: { fr: elles, genre: f, nombre: pl }
+verbes:
+  acheter:
+    {
+      td: chara,
+      fr:
+        {
+          ana: "j'achète",
+          inta: "tu achètes",
+          hu: "il achète",
+          hi: "elle achète",
+        },
+    }
+  vendre:
+    {
+      td: baaʼ,
+      fr: { ana: "je vends", inta: "tu vends", hu: "il vend", hi: "elle vend" },
+    }
+  vouloir:
+    {
+      td: dawwar,
+      inacc: yidoor,
+      fr: { ana: "je veux", inta: "tu veux", hu: "il veut", hi: "elle veut" },
+    }
+  manger:
+    {
+      td: akal,
+      fr:
+        {
+          ana: "je mange",
+          inta: "tu manges",
+          hu: "il mange",
+          hi: "elle mange",
+        },
+    }
+  boire:
+    {
+      td: chirib,
+      fr: { ana: "je bois", inta: "tu bois", hu: "il boit", hi: "elle boit" },
+    }
+  aller:
+    {
+      td: macha,
+      fr: { ana: "je vais", inta: "tu vas", hu: "il va", hi: "elle va" },
+    }
+  venir:
+    {
+      td: ja,
+      fr:
+        { ana: "je viens", inta: "tu viens", hu: "il vient", hi: "elle vient" },
+    }
+  travailler:
+    {
+      td: khadam,
+      fr:
+        {
+          ana: "je travaille",
+          inta: "tu travailles",
+          hu: "il travaille",
+          hi: "elle travaille",
+        },
+    }
+  dormir:
+    {
+      td: naam,
+      fr: { ana: "je dors", inta: "tu dors", hu: "il dort", hi: "elle dort" },
+    }
+  lire:
+    {
+      td: gara,
+      fr: { ana: "je lis", inta: "tu lis", hu: "il lit", hi: "elle lit" },
+    }
+  etudier:
+    {
+      td: daras,
+      fr:
+        {
+          ana: "j'étudie",
+          inta: "tu étudies",
+          hu: "il étudie",
+          hi: "elle étudie",
+        },
+    }
+  prier:
+    {
+      td: salla,
+      sens: 1,
+      fr: { ana: "je prie", inta: "tu pries", hu: "il prie", hi: "elle prie" },
+    }
+  se_lever:
+    {
+      td: gamma,
+      fr:
+        {
+          ana: "je me lève",
+          inta: "tu te lèves",
+          hu: "il se lève",
+          hi: "elle se lève",
+        },
+    }
+  payer:
+    {
+      td: dafaʼ,
+      fr: { ana: "je paie", inta: "tu paies", hu: "il paie", hi: "elle paie" },
+    }
+  laver:
+    {
+      td: khasal,
+      fr: { ana: "je lave", inta: "tu laves", hu: "il lave", hi: "elle lave" },
+    }
+
+  # --- verbes ajoutés pour les thèmes famille, école, santé, animaux, campagne, maison ---
+  voir:
+    { td: chaaf, fr: { ana: "je vois", inta: "tu vois", hu: "il voit", hi: "elle voit" } }
+  appeler:
+    { td: naada, fr: { ana: "j'appelle", inta: "tu appelles", hu: "il appelle", hi: "elle appelle" } }
+  aimer:
+    { td: raad, fr: { ana: "j'aime", inta: "tu aimes", hu: "il aime", hi: "elle aime" } }
+  visiter:
+    { td: zaar, fr: { ana: "je visite", inta: "tu visites", hu: "il visite", hi: "elle visite" } }
+  ouvrir:
+    { td: fatah, fr: { ana: "j'ouvre", inta: "tu ouvres", hu: "il ouvre", hi: "elle ouvre" } }
+  fermer:
+    { td: sadda, fr: { ana: "je ferme", inta: "tu fermes", hu: "il ferme", hi: "elle ferme" } }
+  balayer:
+    { td: gachcha, fr: { ana: "je balaie", inta: "tu balaies", hu: "il balaie", hi: "elle balaie" } }
+  ecouter:
+    { td: simiʼ, fr: { ana: "j'écoute", inta: "tu écoutes", hu: "il écoute", hi: "elle écoute" } }
+  aider:
+    { td: aawan, fr: { ana: "j'aide", inta: "tu aides", hu: "il aide", hi: "elle aide" } }
+  cultiver:
+    { td: zaraʼ, fr: { ana: "je cultive", inta: "tu cultives", hu: "il cultive", hi: "elle cultive" } }
+  arroser:
+    { td: zaga, fr: { ana: "j'arrose", inta: "tu arroses", hu: "il arrose", hi: "elle arrose" } }
+  creuser:
+    { td: hafar, fr: { ana: "je creuse", inta: "tu creuses", hu: "il creuse", hi: "elle creuse" } }
+  soigner:
+    { td: aalaj, fr: { ana: "je soigne", inta: "tu soignes", hu: "il soigne", hi: "elle soigne" } }
+  construire:
+    { td: bana, fr: { ana: "je construis", inta: "tu construis", hu: "il construit", hi: "elle construit" } }
+  rencontrer:
+    { td: gaabal, fr: { ana: "je rencontre", inta: "tu rencontres", hu: "il rencontre", hi: "elle rencontre" } }
+  saluer:
+    { td: sallam, fr: { ana: "je salue", inta: "tu salues", hu: "il salue", hi: "elle salue" } }
+  attendre:
+    { td: riji, fr: { ana: "j'attends", inta: "tu attends", hu: "il attend", hi: "elle attend" } }
+  trouver:
+    { td: ligi, fr: { ana: "je trouve", inta: "tu trouves", hu: "il trouve", hi: "elle trouve" } }
+  chercher:
+    { td: fattach, fr: { ana: "je cherche", inta: "tu cherches", hu: "il cherche", hi: "elle cherche" } }
+  pecher:
+    { td: hawwat, fr: { ana: "je pêche", inta: "tu pêches", hu: "il pêche", hi: "elle pêche" } }
+  donner:
+    { td: anta, fr: { ana: "je donne", inta: "tu donnes", hu: "il donne", hi: "elle donne" } }
+  guerir:
+    { td: biri, fr: { ana: "je guéris", inta: "tu guéris", hu: "il guérit", hi: "elle guérit" } }
+  regarder:
+    { td: nazar, sens: 2, fr: { ana: "je regarde", inta: "tu regardes", hu: "il regarde", hi: "elle regarde" } }
+  nourrir:
+    { td: ayyach, fr: { ana: "je nourris", inta: "tu nourris", hu: "il nourrit", hi: "elle nourrit" } }
+  chasser:
+    { td: ganas, fr: { ana: "je chasse", inta: "tu chasses", hu: "il chasse", hi: "elle chasse" } }
+
+  reparer:
+    { td: addal, fr: { ana: "je répare", inta: "tu répares", hu: "il répare", hi: "elle répare" } }
+  finir:
+    { td: antaha, fr: { ana: "je finis", inta: "tu finis", hu: "il finit", hi: "elle finit" } }
+
+passe:
+  # Participe passé français (passé composé). `aux` : avoir (défaut), etre ou pronominal.
+  # L'accompli arabe n'est produit que pour les verbes que la règle du cours permet de conjuguer
+  # (base terminée par une consonne, sans voyelle longue finale) ; les autres sont ignorés.
+  acheter: { pp: acheté }
+  vendre: { pp: vendu }
+  vouloir: { pp: voulu }
+  manger: { pp: mangé }
+  boire: { pp: bu }
+  travailler: { pp: travaillé }
+  dormir: { pp: dormi }
+  lire: { pp: lu }
+  etudier: { pp: étudié }
+  prier: { pp: prié }
+  payer: { pp: payé }
+  laver: { pp: lavé }
+  voir: { pp: vu }
+  appeler: { pp: appelé }
+  aimer: { pp: aimé }
+  visiter: { pp: visité }
+  ouvrir: { pp: ouvert }
+  fermer: { pp: fermé }
+  balayer: { pp: balayé }
+  ecouter: { pp: écouté }
+  aider: { pp: aidé }
+  cultiver: { pp: cultivé }
+  arroser: { pp: arrosé }
+  creuser: { pp: creusé }
+  soigner: { pp: soigné }
+  construire: { pp: construit }
+  rencontrer: { pp: rencontré }
+  saluer: { pp: salué }
+  attendre: { pp: attendu }
+  trouver: { pp: trouvé }
+  chercher: { pp: cherché }
+  pecher: { pp: pêché }
+  donner: { pp: donné }
+  guerir: { pp: guéri }
+  regarder: { pp: regardé }
+  nourrir: { pp: nourri }
+  chasser: { pp: chassé }
+  reparer: { pp: réparé }
+  finir: { pp: fini }
+  aller: { pp: allé, aux: etre }
+  venir: { pp: venu, aux: etre }
+  se_lever: { pp: levé, aux: pronominal }
+
+imperatif:
+  # Impératif (2e personne masculin singulier) : la forme arabe vient de `impr.` dans le lexique
+  # (cours, chap. 11) ; seuls quelques verbes du lexique en ont une.
+  manger: Mange
+  aider: Aide
+  reparer: Répare
+  finir: Finis
+
+adjectifs:
+  cher: { td: khaali, fr: { m: cher, f: chère } }
+  peu_cher: { td: rakhiis, fr: { m: bon marché, f: bon marché } }
+  bon: { td: zeen, fr: { m: bon, f: bonne } }
+  chaud: { td: haami, fr: { m: chaud, f: chaude } }
+  froid: { td: baarid, fr: { m: froid, f: froide } }
+  propre: { td: nadiif, fr: { m: propre, f: propre } }
+  sale: { td: waskhaan, fr: { m: sale, f: sale } }
+
+  grand: { td: kabiir, fr: { m: grand, f: grande } }
+  petit: { td: sakhayyar, fr: { m: petit, f: petite } }
+  fort: { td: gawi, fr: { m: fort, f: forte } }
+  rapide: { td: sariiʼ, fr: { m: rapide, f: rapide } }
+  fatigue: { td: ayyaan, fr: { m: fatigué, f: fatiguée, mp: fatigués } }
+  content: { td: mabsuut, fr: { m: content, f: contente, mp: contents } }
+  triste: { td: haznaan, fr: { m: triste, f: triste, mp: tristes } }
+  malade: { td: mardaan, fr: { m: malade, f: malade, mp: malades } }
+  plein: { td: malaan, fr: { m: plein, f: pleine } }
+  vide: { td: faadi, fr: { m: vide, f: vide } }
+  haut: { td: aali, fr: { m: haut, f: haute } }
+
+vocabulaire:
+  # Produits achetés (complément partitif)
+  aliments:
+    - { td: laham, fr: { part: "de la viande", def: "la viande" , un: "un morceau de viande" } }
+    - { td: mileh, fr: { part: "du sel", def: "le sel" } }
+    - { td: rizz, fr: { part: "du riz", def: "le riz" } }
+    - { td: sukkar, fr: { part: "du sucre", def: "le sucre" } }
+    - { td: chaahi, fr: { part: "du thé", def: "le thé" } }
+    - { td: laban, fr: { part: "du lait", def: "le lait" } }
+    - { td: dihin, fr: { part: "de l'huile", def: "l'huile" } }
+    - { td: basal, fr: { part: "des oignons", def: "les oignons" , un: "un oignon" } }
+    - { td: tamaatim, fr: { part: "des tomates", def: "les tomates" , un: "une tomate" } }
+    - { td: beed, fr: { part: "des œufs", def: "les œufs" , un: "un œuf" } }
+    - { td: tamur, fr: { part: "des dattes", def: "les dattes" , un: "une datte" } }
+    - { td: darraaba, fr: { part: "du gombo", def: "le gombo" , un: "un gombo" } }
+    - { td: dagiig, fr: { part: "de la farine", def: "la farine" } }
+    - { td: lubya, fr: { part: "des haricots", def: "les haricots" , un: "un haricot" } }
+    - { td: fuul, fr: { part: "des arachides", def: "les arachides" , un: "une arachide" } }
+    - { td: zibde, fr: { part: "du beurre", def: "le beurre" }, sens: 1 }
+    - { td: khalla, fr: { part: "du mil", def: "le mil" }, sens: 2 }
+  # Produits singuliers, genre td connu (n.m./n.f.) : accord des adjectifs
+  produits:
+    - { td: rizz, fr: { def: "le riz", genre: m } }
+    - { td: sukkar, fr: { def: "le sucre", genre: m } }
+    - { td: chaahi, fr: { def: "le thé", genre: m } }
+    - { td: laban, fr: { def: "le lait", genre: m } }
+    - { td: dihin, fr: { def: "l'huile", genre: f } }
+    - { td: dagiig, fr: { def: "la farine", genre: f } }
+    - { td: zibde, fr: { def: "le beurre", genre: m }, sens: 1 }
+    - { td: eech, fr: { def: "la boule", genre: f } }
+  boissons:
+    - { td: chaahi, fr: { part: "du thé" } }
+    - { td: laban, fr: { part: "du lait" } }
+    - { td: almi, fr: { part: "de l'eau" } }
+  plats:
+    - { td: eech, fr: { part: "de la boule" } }
+    - { td: rizz, fr: { part: "du riz" } }
+    - { td: laham, fr: { part: "de la viande" , un: "un morceau de viande" } }
+    - { td: ajiine, fr: { part: "de la pâte de mil" } }
+  lieux:
+    - { td: suug, fr: { dest: "au marché", def: "le marché" } }
+    - { td: beet, fr: { dest: "à la maison", def: "la maison" } }
+    - { td: lekkool, fr: { dest: "à l'école", def: "l'école" } }
+    - { td: hille, fr: { dest: "au village", def: "le village" } }
+    - { td: dukkaan, fr: { dest: "à la boutique", def: "la boutique" } }
+  moments:
+    - { td: "fajur", fr: { txt: "tôt le matin" } }
+    - { td: "fi @gaayle", fr: { txt: "à midi" } }
+    - { td: "fi @achiiye", fr: { txt: "l'après-midi" } }
+    - { td: "fi @leel", fr: { txt: "la nuit" } }
+    - { td: "hassaʼ", fr: { txt: "maintenant" } }
+    - { td: "ambaakir", fr: { txt: "demain" } }
+    # « aujourd'hui » : mot cherché par son sens (td_de), présent dès qu'il est validé dans le corpus
+    - { td_de: "aujourd'hui", fr: { txt: "aujourd'hui" } }
+    - { td: "kulla yoom", fr: { txt: "tous les jours" } }
+  personnes_appel:
+    - { td: akhu, fr: { txt: "mon frère" , pl: "les frères" } }
+    - { td: akhut, fr: { txt: "ma sœur" , pl: "les sœurs" } }
+    - { td: rafiig, fr: { txt: "mon ami" , pl: "les amis" } }
+
+  # --- vocabulaire des thèmes famille, école, santé, animaux, campagne, maison ---
+  # `genre` = genre FRANÇAIS du nom (le genre td vient du lexique) : kursi est n.m. en td
+  # mais « la chaise » est féminin en français.
+  parents:
+    - { td: abu, fr: { def: "le père", genre: m , pl: "les pères" } }
+    - { td: amm, fr: { def: "la mère", genre: f , pl: "les mères" } }
+    - { td: akhu, fr: { def: "le frère", genre: m , pl: "les frères" } }
+    - { td: akhut, fr: { def: "la sœur", genre: f , pl: "les sœurs" } }
+    - { td: jidd, fr: { def: "le grand-père", genre: m , pl: "les grands-pères" } }
+    - { td: iya, fr: { def: "la grand-mère", genre: f } }
+    - { td: rafiig, fr: { def: "l'ami", genre: m , pl: "les amis" } }
+    - { td: jaar, fr: { def: "le voisin", genre: m , pl: "les voisins" }, sens: 1 }
+  objets_ecole:
+    - { td: kitaab, fr: { def: "le livre", genre: m , pl: "les livres" } }
+    - { td: galam, fr: { def: "le stylo", genre: m } }
+    - { td: kaaye, fr: { def: "le cahier", genre: m , pl: "les cahiers" } }
+  soins:
+    - { td: dawa, fr: { def: "le médicament", genre: m } }
+  maux:
+    - { td: wirde, fr: { def: "la fièvre", genre: f } }
+  animaux:
+    - { td: juwaad, fr: { def: "le cheval", genre: m , pl: "les chevaux" } }
+    - { td: humaar, fr: { def: "l'âne", genre: m , pl: "les ânes" } }
+    - { td: jamal, fr: { def: "le chameau", genre: m , pl: "les chameaux" } }
+    - { td: kalib, fr: { def: "le chien", genre: m , pl: "les chiens" } }
+    - { td: biss, fr: { def: "le chat", genre: m , pl: "les chats" } }
+    - { td: fiil, fr: { def: "l'éléphant", genre: m , pl: "les éléphants" } }
+    - { td: daabi, fr: { def: "le serpent", genre: m , pl: "les serpents" } }
+  campagne:
+    - { td: zereʼ, fr: { def: "le champ", genre: m , pl: "les champs" } }
+    - { td: khaaba, fr: { def: "la forêt", genre: f , pl: "les forêts" } }
+    - { td: jabal, fr: { def: "la montagne", genre: f , pl: "les montagnes" } }
+    - { td: biir, fr: { def: "le puits", genre: m , pl: "les puits" } }
+  maison_objets:
+    - { td: baab, fr: { def: "la porte", genre: f , pl: "les portes" } }
+    - { td: chubbaak, fr: { def: "la fenêtre", genre: f , pl: "les fenêtres" } }
+    - { td: sariir, fr: { def: "le lit", genre: m , pl: "les lits" } }
+    - { td: kursi, fr: { def: "la chaise", genre: f , pl: "les chaises" } }
+    - { td: tarabeeza, fr: { def: "la table", genre: f , pl: "les tables" } }
+    - { td: fadaay, fr: { def: "la cour", genre: f , pl: "les cours" } }
+  # Jours et repères : résolus par leur SENS français (td_de) depuis le lexique. Seuls « samedi »
+  # (sabit) et « dimanche » (ahad) y sont d'origine ; lundi→vendredi et « aujourd'hui » sont des
+  # propositions (ajouts_corpus.csv) utilisées après validation, avec la graphie validée.
+  jours:
+    - { td_de: lundi, fr: { txt: lundi } }
+    - { td_de: mardi, fr: { txt: mardi } }
+    - { td_de: mercredi, fr: { txt: mercredi } }
+    - { td_de: jeudi, fr: { txt: jeudi } }
+    - { td_de: vendredi, fr: { txt: vendredi } }
+    - { td_de: samedi, fr: { txt: samedi } }
+    - { td_de: dimanche, fr: { txt: dimanche } }
+  reperes_jour:
+    - { td: ambaakir, fr: { txt: "demain" } }
+    - { td_de: "aujourd'hui", fr: { txt: "aujourd'hui" } }
+  moments_programme:
+    - { td: hassaʼ, fr: { txt: maintenant } }
+    - { td: ambaakir, fr: { txt: demain } }
+    - { td_de: "aujourd'hui", fr: { txt: "aujourd'hui" } }
+  corps:
+    - { td: raas, fr: { def: "la tête", genre: f, dl: "les deux têtes" } }
+    - { td: iid, fr: { def: "la main", genre: f, dl: "les deux mains" }, sens: 1 }
+    - { td: rijil, fr: { def: "la jambe", genre: f, dl: "les deux jambes" } }
+    - { td: een, fr: { def: "l'œil", genre: m, dl: "les deux yeux" }, sens: 1 }
+  parents_dl:
+    - { td: waalid, fr: { def: "le père", genre: m, dl: "les deux parents" } }
+  moments_passe:
+    - { td: amis, fr: { txt: "hier" } }
+    - { td: albaareh, fr: { txt: "hier soir" } }
+  sujets_m:
+    - { td: ana, fr: { txt: "je suis" } }
+    - { td: inta, fr: { txt: "tu es" } }
+    - { td: hu, fr: { txt: "il est" } }
+  sujets_f:
+    - { td: hi, fr: { txt: "elle est" } }
+    - { td: inti, fr: { txt: "tu es" } }
+  sujets_pl:
+    - { td: aniina, fr: { txt: "nous sommes" } }
+    - { td: intu, fr: { txt: "vous êtes" } }
+    - { td: humman, fr: { txt: "ils sont" } }
+
+themes:
+  salutations:
+    titre: Salutations et politesse
+    gabarits:
+      - id: sal-appel
+        td: "Salaam, ya {X}!"
+        fr: "Bonjour, {X.txt} !"
+        slots: { X: personnes_appel }
+      - id: sal-sante
+        td: "{P} aafe?"
+        fr: "{P.fr} vas bien ?"
+        personnes: [inta]
+      - id: sal-sante-3
+        td: "{P} aafe?"
+        fr: "Est-ce qu'{P.fr} va bien ?"
+        personnes: [hu, hi]
+    phrases:
+      - { td: "Salaam aleekum.", fr: "Que la paix soit sur vous." }
+      - {
+          td: "Aywa, ana aafe, hamdulillah.",
+          fr: "Oui, je vais bien, Dieu merci.",
+        }
+      - { td: "Kikkeef @ahal?", fr: "Comment va la famille ?" }
+      - {
+          td: "@ahal aafe, hamdulillah.",
+          fr: "La famille va bien, Dieu merci.",
+        }
+      - { td: "Marhaban!", fr: "Bienvenue !" }
+      - { td: "Chukran.", fr: "Merci." }
+      - { td: "Min fadlak.", fr: "S'il te plaît." }
+      - { td: "Yo sameh.", fr: "D'accord." }
+      - { td: "Mabruuk!", fr: "Félicitations !" }
+      - { td: "In cha Allah.", fr: "S'il plaît à Dieu." }
+      - { td: "Baarakallah.", fr: "Que Dieu soit béni !" }
+
+  marche:
+    titre: Au marché
+    gabarits:
+      - id: mar-achat
+        td: "{P} {V} {N}."
+        fr: "{V} {N.part}."
+        verbes: [acheter, vouloir, vendre]
+        aspects: [inacc, accompli]
+        slots: { N: aliments }
+      - id: mar-prix
+        td: "{@N} be kam?"
+        fr: "Combien coûte {N.def} ?"
+        slots: { N: produits }
+      - id: mar-qualite
+        td: "{@N} {A}."
+        fr: "{N.def} est {A}."
+        slots: { N: produits }
+        adjectifs: [cher, peu_cher, bon]
+        accord: N
+      - id: mar-aller
+        td: "{P} {V} {@L}."
+        fr: "{V} au marché."
+        verbes: [aller]
+        aspects: [inacc, accompli]
+        slots: { L: [suug] }
+      - id: mar-payer
+        td: "{P} {V} @taman."
+        fr: "{V} le prix."
+        verbes: [payer]
+        aspects: [inacc, accompli]
+      - id: mar-question
+        td: "{P} {V} {N}?"
+        fr: "Est-ce que {V} {N.part} ?"
+        verbes: [acheter, vouloir, vendre]
+        aspects: [inacc, accompli]
+        slots: { N: aliments }
+      - id: mar-singulatif
+        td: "{P} {V} {N.sg}."
+        fr: "{V} {N.un}."
+        verbes: [acheter, vouloir, vendre]
+        aspects: [inacc, accompli]
+        slots: { N: aliments }
+      - id: mar-et
+        td: "{P} {V} {N1} wa {N2}."
+        fr: "{V} {N1.part} et {N2.part}."
+        verbes: [manger, acheter]
+        aspects: [inacc, accompli]
+        slots: { N1: plats, N2: plats }
+        distinct: [N1, N2]
+      - id: mar-ordre
+        td: "{V} {@N}!"
+        fr: "{V} {N.def} !"
+        verbes: [manger]
+        aspects: [impr]
+        slots: { N: produits }
+
+  journee:
+    titre: La journée
+    gabarits:
+      - id: jou-activite
+        td: "{P} {V} {M}."
+        fr: "{V} {M.txt}."
+        verbes: [travailler, dormir, lire, etudier, prier]
+        aspects: [inacc, accompli]
+        slots: { M: moments }
+      - id: jou-lever
+        td: "{P} {V} fajur."
+        fr: "{V} tôt le matin."
+        verbes: [se_lever]
+        aspects: [inacc, accompli]
+      - id: jou-manger
+        td: "{P} {V} {N}."
+        fr: "{V} {N.part}."
+        verbes: [manger]
+        aspects: [inacc, accompli]
+        slots: { N: plats }
+      - id: jou-boire
+        td: "{P} {V} {N}."
+        fr: "{V} {N.part}."
+        verbes: [boire]
+        aspects: [inacc, accompli]
+        slots: { N: boissons }
+
+  temps:
+    titre: Le temps qu'il fait
+    gabarits:
+      - id: tem-wata
+        td: "@wata {A}."
+        fr: "Il fait {A}."
+        adjectifs: [chaud, froid]
+        accord_td: f # wata est n.f. dans le lexique
+        accord_fr: m
+      - id: tem-pluie
+        td: "{M} @matar yaji."
+        fr: "{M.txt}, il va pleuvoir."
+        slots: { M: moments_programme }
+    phrases:
+      - { td: "@harraay haamiye bilheen.", fr: "Le soleil est très chaud." }
+      - { td: "@matar ja.", fr: "Il a plu." }
+      - {
+          td: "Fi @khariif @matar katiir.",
+          fr: "Pendant la saison des pluies, il pleut beaucoup.",
+        }
+      - {
+          td: "Fi @seef @wata haamiye.",
+          fr: "Pendant la saison chaude, il fait chaud.",
+        }
+      - {
+          td: "Fi @chite @wata baarde.",
+          fr: "Pendant la saison froide, il fait froid.",
+        }
+      - { td: "@riih gawiiye.", fr: "Le vent est fort." }
+      - { td: "@ajaaj katiir.", fr: "Il y a beaucoup de poussière." }
+
+  deplacements:
+    titre: Déplacements et lieux
+    gabarits:
+      - id: dep-aller
+        td: "{P} {V} {@L}."
+        fr: "{V} {L.dest}."
+        verbes: [aller, venir]
+        aspects: [inacc, accompli]
+        slots: { L: lieux }
+      - id: dep-ou
+        td: "{@L} ween?"
+        fr: "Où est {L.def} ?"
+        slots: { L: lieux }
+    phrases:
+      - { td: "Inta maachi ween?", fr: "Où vas-tu ?" }
+      - { td: "Ana maachi @suug.", fr: "Je vais au marché." }
+      - { td: "@beet gariib.", fr: "La maison est proche." }
+
+  famille:
+    titre: La famille
+    gabarits:
+      - id: fam-ou
+        td: "{@N} ween?"
+        fr: "Où est {N.def} ?"
+        slots: { N: parents }
+      - id: fam-lieu
+        td: "{@N} fi {@L}."
+        fr: "{N.def} est {L.dest}."
+        slots: { N: parents, L: [beet, suug, hille, dukkaan] }
+      - id: fam-adjectif
+        td: "{@N} {A}."
+        fr: "{N.def} est {A}."
+        slots: { N: parents }
+        adjectifs: [grand, petit, fort, fatigue, content, triste, malade]
+        accord: N
+      - id: fam-verbe
+        td: "{P} {V} {@N}."
+        fr: "{V} {N.def}."
+        verbes: [voir, appeler, aimer, aider, saluer, visiter, attendre]
+        aspects: [inacc, accompli]
+        slots: { N: parents }
+      - id: fam-pluriel-ou
+        td: "{@N.pl} ween?"
+        fr: "Où sont {N.pl} ?"
+        slots: { N: parents }
+      - id: fam-pluriel-lieu
+        td: "{@N.pl} fi {@L}."
+        fr: "{N.pl} sont {L.dest}."
+        slots: { N: parents, L: [beet, suug, hille, dukkaan] }
+      - id: fam-pluriel-verbe
+        td: "{P} {V} {@N.pl}."
+        fr: "{V} {N.pl}."
+        verbes: [voir, appeler, aimer, aider, saluer, visiter]
+        aspects: [inacc, accompli]
+        slots: { N: parents }
+      - id: fam-tres
+        td: "{@N} {A} bilheen."
+        fr: "{N.def} est très {A}."
+        slots: { N: parents }
+        adjectifs: [grand, petit, fort, fatigue, content, triste]
+        accord: N
+      - id: fam-question
+        td: "{P} {V} {@N}?"
+        fr: "Est-ce que {V} {N.def} ?"
+        verbes: [voir, appeler, aimer, visiter, attendre]
+        aspects: [inacc, accompli]
+        slots: { N: parents }
+      - id: fam-ordre
+        td: "{V} {@N}!"
+        fr: "{V} {N.def} !"
+        verbes: [aider]
+        aspects: [impr]
+        slots: { N: parents }
+      - id: fam-duel
+        td: "{@N.dl} fi {@L}."
+        fr: "{N.dl} sont {L.dest}."
+        slots: { N: parents_dl, L: [beet, suug, hille, dukkaan] }
+
+  ecole:
+    titre: À l'école
+    gabarits:
+      - id: eco-etudier
+        td: "{P} {V} fi {@L}."
+        fr: "{V} {L.dest}."
+        verbes: [etudier, lire]
+        aspects: [inacc, accompli]
+        slots: { L: [lekkool] }
+      - id: eco-objet
+        td: "{P} {V} {@N}."
+        fr: "{V} {N.def}."
+        verbes: [chercher, trouver, voir, regarder]
+        aspects: [inacc, accompli]
+        slots: { N: objets_ecole }
+      - id: eco-lire
+        td: "{P} {V} {@N}."
+        fr: "{V} {N.def}."
+        verbes: [lire, ouvrir, fermer]
+        aspects: [inacc, accompli]
+        slots: { N: [kitaab, kaaye] }
+      - id: eco-prix
+        td: "{@N} be kam?"
+        fr: "Combien coûte {N.def} ?"
+        slots: { N: objets_ecole }
+      - id: eco-ou
+        td: "{@N} ween?"
+        fr: "Où est {N.def} ?"
+        slots: { N: objets_ecole }
+      - id: eco-pluriel
+        td: "{@N.pl} ween?"
+        fr: "Où sont {N.pl} ?"
+        slots: { N: [kitaab, kaaye] }
+      - id: eco-question
+        td: "{P} {V} {@N}?"
+        fr: "Est-ce que {V} {N.def} ?"
+        verbes: [lire, chercher, trouver]
+        aspects: [inacc, accompli]
+        slots: { N: objets_ecole }
+      - id: eco-ordre
+        td: "{V} {@N}!"
+        fr: "{V} {N.def} !"
+        verbes: [finir]
+        aspects: [impr]
+        slots: { N: [kitaab] }
+
+  sante:
+    titre: La santé
+    gabarits:
+      - id: san-etat-m
+        td: "{S} {A}."
+        fr: "{S.txt} {A}."
+        slots: { S: sujets_m }
+        adjectifs: [malade, fatigue, content, triste]
+        accord_td: m
+        accord_fr: m
+      - id: san-etat-f
+        td: "{S} {A}."
+        fr: "{S.txt} {A}."
+        slots: { S: sujets_f }
+        adjectifs: [malade, fatigue, content, triste]
+        accord_td: f
+        accord_fr: f
+      - id: san-etat-pl
+        td: "{S} {A}."
+        fr: "{S.txt} {A}."
+        slots: { S: sujets_pl }
+        adjectifs: [malade, fatigue, content, triste]
+        accord_nb: pl
+      - id: san-fievre
+        td: "{@N} {A}."
+        fr: "{N.def} est {A}."
+        slots: { N: maux }
+        adjectifs: [fort]
+        accord: N
+      - id: san-medicament
+        td: "{P} {V} {@N}."
+        fr: "{V} {N.def}."
+        verbes: [chercher, trouver, donner]
+        aspects: [inacc, accompli]
+        slots: { N: soins }
+      - id: san-hopital
+        td: "{P} {V} {@L}."
+        fr: "{V} à l'hôpital."
+        verbes: [aller, venir]
+        aspects: [inacc, accompli]
+        slots: { L: [labtaan] }
+      - id: san-guerir
+        td: "{P} {V}."
+        fr: "{V}."
+        verbes: [guerir]
+        aspects: [inacc, accompli]
+
+  animaux:
+    titre: Les animaux
+    gabarits:
+      - id: ani-ou
+        td: "{@N} ween?"
+        fr: "Où est {N.def} ?"
+        slots: { N: animaux }
+      - id: ani-lieu
+        td: "{@N} fi {@L}."
+        fr: "{N.def} est {L.dest}."
+        slots: { N: animaux, L: [beet, suug, hille] }
+      - id: ani-adjectif
+        td: "{@N} {A}."
+        fr: "{N.def} est {A}."
+        slots: { N: animaux }
+        adjectifs: [grand, petit, fort, rapide]
+        accord: N
+      - id: ani-voir
+        td: "{P} {V} {@N}."
+        fr: "{V} {N.def}."
+        verbes: [voir, chercher, trouver, regarder]
+        aspects: [inacc, accompli]
+        slots: { N: animaux }
+      - id: ani-nourrir
+        td: "{P} {V} {@N}."
+        fr: "{V} {N.def}."
+        verbes: [nourrir]
+        aspects: [inacc, accompli]
+        slots: { N: [juwaad, humaar, jamal, kalib, biss] }
+      - id: ani-activite
+        td: "{P} {V}."
+        fr: "{V}."
+        verbes: [chasser, pecher]
+        aspects: [inacc, accompli]
+      - id: ani-pluriel
+        td: "{@N.pl} ween?"
+        fr: "Où sont {N.pl} ?"
+        slots: { N: animaux }
+      - id: ani-pluriel-voir
+        td: "{P} {V} {@N.pl}."
+        fr: "{V} {N.pl}."
+        verbes: [voir, chercher, trouver, regarder]
+        aspects: [inacc, accompli]
+        slots: { N: animaux }
+      - id: ani-tres
+        td: "{@N} {A} bilheen."
+        fr: "{N.def} est très {A}."
+        slots: { N: animaux }
+        adjectifs: [grand, petit, fort, rapide]
+        accord: N
+      - id: ani-question
+        td: "{P} {V} {@N}?"
+        fr: "Est-ce que {V} {N.def} ?"
+        verbes: [voir, chercher, trouver, nourrir]
+        aspects: [inacc, accompli]
+        slots: { N: [juwaad, humaar, jamal, kalib, biss] }
+
+  campagne:
+    titre: Au champ et au village
+    gabarits:
+      - id: cam-champ
+        td: "{P} {V} {@N}."
+        fr: "{V} {N.def}."
+        verbes: [cultiver, arroser, regarder]
+        aspects: [inacc, accompli]
+        slots: { N: [zereʼ] }
+      - id: cam-puits
+        td: "{P} {V} {@N}."
+        fr: "{V} {N.def}."
+        verbes: [creuser, regarder]
+        aspects: [inacc, accompli]
+        slots: { N: [biir] }
+      - id: cam-construire
+        td: "{P} {V} {@N}."
+        fr: "{V} {N.def}."
+        verbes: [construire]
+        aspects: [inacc, accompli]
+        slots: { N: [beet] }
+      - id: cam-ou
+        td: "{@N} ween?"
+        fr: "Où est {N.def} ?"
+        slots: { N: campagne }
+      - id: cam-grand
+        td: "{@N} {A}."
+        fr: "{N.def} est {A}."
+        slots: { N: [zereʼ, khaaba, jabal] }
+        adjectifs: [grand, petit]
+        accord: N
+      - id: cam-puits-etat
+        td: "{@N} {A}."
+        fr: "{N.def} est {A}."
+        slots: { N: [biir] }
+        adjectifs: [plein, vide]
+        accord: N
+      - id: cam-pluriel
+        td: "{@N.pl} ween?"
+        fr: "Où sont {N.pl} ?"
+        slots: { N: campagne }
+      - id: cam-tres
+        td: "{@N} {A} bilheen."
+        fr: "{N.def} est très {A}."
+        slots: { N: [zereʼ, khaaba, jabal] }
+        adjectifs: [grand, petit]
+        accord: N
+
+  maison:
+    titre: La maison
+    gabarits:
+      - id: mai-ouvrir
+        td: "{P} {V} {@N}."
+        fr: "{V} {N.def}."
+        verbes: [ouvrir, fermer]
+        aspects: [inacc, accompli]
+        slots: { N: [baab, chubbaak] }
+      - id: mai-balayer
+        td: "{P} {V} {@N}."
+        fr: "{V} {N.def}."
+        verbes: [balayer]
+        aspects: [inacc, accompli]
+        slots: { N: [fadaay, beet] }
+      - id: mai-ou
+        td: "{@N} ween?"
+        fr: "Où est {N.def} ?"
+        slots: { N: maison_objets }
+      - id: mai-etat
+        td: "{@N} {A}."
+        fr: "{N.def} est {A}."
+        slots: { N: [tarabeeza, kursi, sariir] }
+        adjectifs: [propre, sale]
+        accord: N
+      - id: mai-prix
+        td: "{@N} be kam?"
+        fr: "Combien coûte {N.def} ?"
+        slots: { N: [sariir, kursi, tarabeeza] }
+      - id: mai-pluriel
+        td: "{@N.pl} ween?"
+        fr: "Où sont {N.pl} ?"
+        slots: { N: maison_objets }
+      - id: mai-reparer
+        td: "{P} {V} {@N}."
+        fr: "{V} {N.def}."
+        verbes: [reparer]
+        aspects: [inacc, accompli]
+        slots: { N: [baab, chubbaak, kursi, tarabeeza, sariir] }
+      - id: mai-ordre
+        td: "{V} {@N}!"
+        fr: "{V} {N.def} !"
+        verbes: [reparer]
+        aspects: [impr]
+        slots: { N: [baab, chubbaak, kursi, tarabeeza, sariir] }
+      - id: mai-question
+        td: "{P} {V} {@N}?"
+        fr: "Est-ce que {V} {N.def} ?"
+        verbes: [ouvrir, fermer, reparer]
+        aspects: [inacc, accompli]
+        slots: { N: [baab, chubbaak] }
+
+  programme:
+    titre: Aujourd'hui et demain
+    gabarits:
+      - id: pro-aller
+        td: "{M} {P} {V} {@L}."
+        fr: "{M.txt}, {V} {L.dest}."
+        verbes: [aller, venir]
+        slots: { M: moments_programme, L: lieux }
+      - id: pro-acheter
+        td: "{M} {P} {V} {N}."
+        fr: "{M.txt}, {V} {N.part}."
+        verbes: [acheter, vendre]
+        slots: { M: moments_programme, N: aliments }
+      - id: pro-activite
+        td: "{M} {P} {V}."
+        fr: "{M.txt}, {V}."
+        verbes: [travailler, dormir, etudier]
+        slots: { M: moments_programme }
+      - id: pro-hier-manger
+        td: "{M} {P} {V} {N}."
+        fr: "{M.txt}, {V} {N.part}."
+        verbes: [manger]
+        aspects: [accompli]
+        slots: { M: moments_passe, N: plats }
+      - id: pro-hier-boire
+        td: "{M} {P} {V} {N}."
+        fr: "{M.txt}, {V} {N.part}."
+        verbes: [boire]
+        aspects: [accompli]
+        slots: { M: moments_passe, N: boissons }
+      - id: pro-hier-acheter
+        td: "{M} {P} {V} {N}."
+        fr: "{M.txt}, {V} {N.part}."
+        verbes: [acheter, vendre]
+        aspects: [accompli]
+        slots: { M: moments_passe, N: aliments }
+      - id: pro-hier-activite
+        td: "{M} {P} {V}."
+        fr: "{M.txt}, {V}."
+        verbes: [travailler, etudier, lire]
+        aspects: [accompli]
+        slots: { M: moments_passe }
+
+  semaine:
+    titre: Les jours de la semaine
+    gabarits:
+      - id: sem-jour
+        td: "{M} {J}."
+        fr: "{M.txt}, c'est {J.txt}."
+        slots: { M: reperes_jour, J: jours }
+
+  corps:
+    titre: Le corps
+    gabarits:
+      - id: cor-ou
+        td: "{@N} ween?"
+        fr: "Où est {N.def} ?"
+        slots: { N: corps }
+      - id: cor-laver
+        td: "{P} {V} {@N}."
+        fr: "{V} {N.def}."
+        verbes: [laver, regarder]
+        aspects: [inacc, accompli]
+        slots: { N: [raas, iid, rijil] }
+      - id: cor-duel
+        td: "{P} {V} {@N.dl}."
+        fr: "{V} {N.dl}."
+        verbes: [laver]
+        aspects: [inacc, accompli]
+        slots: { N: [iid, rijil] }
+      - id: cor-etat
+        td: "{@N} {A}."
+        fr: "{N.def} est {A}."
+        slots: { N: [raas, iid, rijil] }
+        adjectifs: [propre, sale]
+        accord: N
+      - id: cor-duel-ou
+        td: "{@N.dl} ween?"
+        fr: "Où sont {N.dl} ?"
+        slots: { N: [raas, iid, rijil, een] }

@@ -1,0 +1,52 @@
+[project]
+name = "td-arabic"
+version = "0.2.0"
+description = "Corpus bilingue arabe tchadien (latinisé) – français : extraction du lexique, traduction, génération de phrases et enregistrement audio multi-locuteurs."
+readme = "README.md"
+authors = [{ name = "MAHAMAT Cherif Issa", email = "cherifissa36@gmail.com" }]
+requires-python = ">=3.11"
+license = "MIT"  # code ; données dérivées du lexique SIL : voir docs/05-ethique-licences.md
+license-files = ["LICENSE"]
+keywords = ["arabe tchadien", "shu", "low-resource", "nlp", "speech", "corpus"]
+
+# Dépendances minimales : traduction, génération, CLI.
+dependencies = [
+    "pandas>=2.2",
+    "rapidfuzz>=3.9",
+    "pyyaml>=6.0",
+    "numpy>=1.26",
+    "scipy>=1.11",
+    "watchdog>=6.0.0",
+]
+
+[project.optional-dependencies]
+# Extraction du PDF source (étape 1 du pipeline)
+extract = ["pdfplumber>=0.11"]
+# API REST
+api = ["fastapi>=0.115", "uvicorn>=0.30", "python-dotenv>=1.0"]
+# Applications Streamlit (validation OCR + studio)
+apps = ["streamlit>=1.50", "pdfplumber>=0.11"]
+# Expériences de modélisation (traduction / ASR) — non requises pour le corpus
+ml = [
+    "transformers>=4.45",
+    "datasets>=3.0",
+    "evaluate>=0.4",
+    "sacrebleu>=2.4",
+    "sentencepiece>=0.2",
+    "accelerate>=1.0",
+    "scikit-learn>=1.5",
+]
+all = ["td-arabic[extract,api,apps]"]
+
+[project.scripts]
+td-arabic = "td_arabic.cli:main"
+
+[dependency-groups]
+dev = ["pytest>=8.0", "httpx>=0.27", "jupyter>=1.0"]
+
+[build-system]
+requires = ["uv_build>=0.8,<0.13"]
+build-backend = "uv_build"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

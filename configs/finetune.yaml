@@ -1,0 +1,38 @@
+# =============================================================================
+# Données d'entraînement pour Unsloth Studio (français <-> arabe tchadien latinisé)
+# Voir docs/08-fine-tuning.md. Commandes : uv run td-arabic finetune {check,prepare,install,studio}
+#
+# L'entraînement se fait dans Unsloth Studio : le modèle de base, LoRA, le nombre de passages
+# et les autres réglages s'y choisissent (réglages conseillés dans docs/08-fine-tuning.md).
+# Ce fichier ne décrit que les données écrites dans data/finetune/{train,valid}.jsonl.
+# =============================================================================
+
+# Graine du mélange des exemples d'entraînement (dans l'ordre du corpus ils sont alphabétiques).
+seed: 3407
+
+# Données (construites depuis le corpus, cf. `td-arabic finetune prepare`).
+data:
+  # Source des exemples :
+  #   corpus  : paires de traduction du corpus et phrases validées (réglages include_* et valid_ratio) ;
+  #   dataset : toutes les tâches de `td-arabic dataset` (data/dataset/exports/sft, reconstruit par
+  #             `finetune prepare`), sans les entrées signalées comme erreurs ; découpage par lemme et
+  #             par gabarit (dev + probe pour l'évaluation, test jamais utilisé). Voir docs/09.
+  #             Avec cette source, prendre une consigne système générale (pas seulement « Traduis »).
+  source: corpus
+  # Source dataset : tâches à garder (vide = toutes) parmi traduction_mot, definition, flexion,
+  # lemmatisation, orthographe, traduction_phrase. « directions » filtre les tâches de traduction.
+  tasks: []
+  # Les paires du lexique (mot -> sens) et les phrases VALIDÉES de la banque. Les brouillons
+  # ne sont jamais utilisés : seul ce qu'un locuteur a validé sert à entraîner.
+  include_lexicon: false
+  include_validated_sentences: true
+  include_expressions: false
+  # Nombre de paires d'entraînement (0 = toutes). Choisies au hasard mais toujours les mêmes et
+  # emboîtées (les 100 font partie des 1 000) ; l'évaluation ne change pas.
+  max_pairs: 0
+  directions: [fr-ar, ar-fr]
+  valid_ratio: 0.05 # part des paires gardées pour l'évaluation (jamais vues à l'entraînement)
+  # Courte : elle est répétée dans chaque exemple. La même consigne sert ensuite à interroger le modèle.
+  system_prompt: >-
+    Traduis entre le français et l'arabe tchadien en alphabet latin (orthographe SIL). Réponds
+    seulement par la traduction.
