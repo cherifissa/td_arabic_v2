@@ -1,22 +1,49 @@
-# 2. Fiche descriptive du corpus (datasheet)
+# 2. Fiche de données (data card)
 
 Format inspiré de *Datasheets for Datasets* (Gebru et al., 2021).
 
-## Motivation
+| | |
+| --- | --- |
+| Nom | td-arabic — corpus arabe tchadien latinisé ↔ français (texte, puis voix) |
+| Version | 0.2 |
+| Langues | arabe tchadien (`shu`, écriture latine) ; français (`fra`) |
+| Auteur | MAHAMAT Cherif Issa |
+| Licence | code MIT ; données lexicales soumises à l'accord de SIL Tchad (voir §7) |
+| Échantillon public | [`data/samples/`](../data/samples/) (24 phrases) |
 
-- **Pourquoi ?** Fournir une ressource lexicale et parallèle ouverte à la recherche pour
-  l'arabe tchadien, base d'un futur corpus parole-texte.
+## 1. Motivation
+
+- **Pourquoi ?** L'arabe tchadien est la principale langue véhiculaire du Tchad mais
+  presque aucune ressource numérique n'existe pour la traduction automatique ou la
+  reconnaissance vocale. Ce corpus doit servir de base à un futur corpus parole ↔ texte.
 - **Par qui ?** MAHAMAT Cherif Issa, dans le cadre d'un projet de doctorat.
+- **Financement** : aucun à ce jour.
 
-## Composition
+## 2. Provenance des données
 
-### Corpus textuel (`data/processed/`)
+| Composant | Origine |
+| --- | --- |
+| Lexique bilingue | *Lexique arabe tchadien – français*, SIL Tchad, 11e édition, 2021 (PDF de 171 pages, pages 15 à 171) |
+| Expressions | découpées à la main dans les définitions du lexique qui contiennent `expr.` (77 expressions) |
+| Ajouts | mots ou sens ajoutés par l'auteur, marqués `type = ajout` et séparables des données SIL |
+| Phrases | générées par l'auteur à partir de gabarits (`data/resources/themes.yaml`) remplis avec les mots du lexique |
+| Audio (à venir) | lectures des phrases validées par des locuteurs volontaires ayant signé le [formulaire de consentement](ethique/formulaire-consentement.md) |
+
+Le lexique décrit surtout le parler de N'Djamena. Le texte en écriture arabe du PDF n'est
+pas récupérable (encodage de police cassé) : seule la translittération latine est utilisée.
+
+## 3. Composition
+
+### Corpus textuel (`data/processed/`, non publié)
 
 | Fichier | Lignes | Description |
 | --- | --- | --- |
-| `lexique_final.csv` | 4 909 | lexique complet, une ligne par entrée ou expression, avec page et colonne d'origine |
+| `lexique_final.csv` | 4 909 | une ligne par entrée ou expression, avec page et colonne d'origine |
 | `corpus_arabe_tchadien_francais.csv` | 4 909 | paires `src` (arabe tchadien) → `output` (français) |
 | `corpus_bilingue.csv` | 9 818 | les mêmes paires dans les deux sens (`direction` = `ar-fr` / `fr-ar`) |
+
+- 4 734 mots-vedettes distincts, dont 353 homographes numérotés.
+- 3 617 entrées portent des formes fléchies.
 
 Colonnes de `corpus_arabe_tchadien_francais.csv` :
 
@@ -28,8 +55,7 @@ Colonnes de `corpus_arabe_tchadien_francais.csv` :
 | `forms` | formes fléchies, séparées par ` / ` ; `expr.` pour une expression | `inacc. yaʼabud / impr. aʼabud` |
 | `sense_number` | numéro d'homographe (vide sinon) | `1` |
 
-Colonnes supplémentaires de `lexique_final.csv` : `type` (`entry` / `expression` / `ajout`, ce dernier
-pour les ajouts manuels de [3.5](03-generation-traduction.md)),
+Colonnes supplémentaires de `lexique_final.csv` : `type` (`entry` / `expression` / `ajout`),
 `parent_headword`, `expression_number`, `section`, `page`, `column`, `ligature_reconstructed`.
 
 ### Répartition par catégorie
@@ -51,61 +77,81 @@ pour les ajouts manuels de [3.5](03-generation-traduction.md)),
 | `f.` féminin | 928 | `dl.` duel | 49 |
 | `sg.` singulatif | 121 | `impr.` impératif | 25 |
 
-### Corpus de phrases et corpus audio
+### Phrases (`data/sentences/phrases.csv`, non publié)
 
-- `data/sentences/phrases.csv` : phrases générées, traduites ou saisies, avec statut
-  (`brouillon`, `validee`, `rejetee`), thème, gabarit d'origine, lemmes utilisés et mots
-  hors lexique.
-- `data/audio/metadata.csv` : une ligne par enregistrement (`file_name`, `sentence_id`,
-  `speaker_id`, `td`, `fr`, `theme`, `duration_s`, `sample_rate`, `genre`, `tranche_age`,
-  `region`, `recorded_at`). WAV mono PCM 16 bits, 16 kHz par défaut.
+Une ligne par phrase : `id`, `theme`, `template_id`, `fr`, `td`, `lemmes`, `hors_lexique`,
+`statut` (`brouillon`, `validee`, `rejetee`), `source`, dates de création et de modification.
+La banque compte **4 858 phrases** sur **14 thèmes** (4 401 au statut `validee`, 457 en
+`brouillon`), toutes produites par gabarits.
 
-## Processus de collecte
+### Audio (`data/audio/`, à venir, jamais publié sans consentement)
 
-Extraction automatique depuis le PDF du lexique (cf. [méthodologie](01-methodologie.md)),
-découpage manuel des expressions, puis phrases construites par gabarits et lues par des
-locuteurs volontaires ayant donné leur consentement.
+`metadata.csv` : une ligne par enregistrement (`file_name`, `sentence_id`, `speaker_id`,
+`td`, `fr`, `theme`, `duration_s`, `sample_rate`, `genre`, `tranche_age`, `region`,
+`recorded_at`). WAV mono PCM 16 bits, 16 kHz par défaut. Format compatible Hugging Face
+`audiofolder`.
 
-## Orthographe
+## 4. Méthode de collecte et de traitement
 
-- Coupure glottale : `ʼ` (U+02BC). Les saisies `'`, `’`, `ʾ` sont normalisées à la recherche.
-- Voyelles longues doublées (`aa`, `ii`, `uu`) ; `kh`, `ch`, `tch` = une seule lettre.
-- Article défini `al-`, élidé en `l-` après une particule (`fi l-khariif`).
-- Contexte : le ʿayn classique est réalisé comme coupure glottale en arabe tchadien et la
-  langue est rarement écrite, d'où cette transcription latinisée (cf.
-  [méthodologie, 1.2](01-methodologie.md)).
+1. **Extraction sans OCR** : lecture de la couche texte du PDF (pdfplumber). La police, la
+   taille et la position des mots servent de balisage (mot-vedette, sous-entrée, numéro
+   d'homographe, forme fléchie). Détails : [méthodologie](01-methodologie.md).
+2. **Structuration** : découpage des expressions à partir d'un fichier de découpages
+   validés à la main ; toute nouvelle expression non couverte est listée pour vérification
+   au lieu d'être découpée automatiquement.
+3. **Génération de phrases** : gabarits thématiques remplis avec les mots du lexique ; la
+   conjugaison et l'accord viennent des formes du lexique ou de règles documentées, jamais
+   inventés. Chaque phrase garde la trace des mots utilisés et des mots hors lexique.
 
-## Qualité et limites
+## 5. Méthode de validation
 
-- 209 entrées ont une ligature reconstruite automatiquement (colonne `ligature_reconstructed`).
-- Quelques définitions incluent une sous-entrée non séparée (ex. `ambaakir`, `beet`).
-- Le texte arabe (écriture arabe) du lexique n'est pas récupérable depuis ce PDF.
-- La couverture lexicale est celle d'un lexique d'apprentissage (~4 700 mots) : vocabulaire
-  courant, peu de termes techniques.
-- Variation dialectale non représentée dans le texte ; elle est documentée côté audio
-  (région du locuteur).
+| Niveau | Méthode | État |
+| --- | --- | --- |
+| Extraction | application `td-arabic validate` : page du PDF à côté du texte extrait, corrigé page par page | en cours (pages 15 à 171) |
+| Ligatures | 209 entrées à ligature reconstruite, marquées `ligature_reconstructed = True` pour relecture | marquées |
+| Non-régression | l'extraction v0.2 retrouve les 4 832 entrées de la v0.1 ; seules 5 corrections de ligature diffèrent | vérifié |
+| Phrases | relecture dans le studio, statut `brouillon` → `validee` / `rejetee` | un seul relecteur à ce jour |
+| Phrases (à venir) | relecture par plusieurs locuteurs natifs, mesure de l'accord inter-annotateurs | à faire |
+| Audio | contrôle automatique de durée (0,5 à 30 s) et réécoute de chaque prise | prévu dans le studio |
+| Tests | 9 fichiers de tests automatisés (`uv run pytest`) | en place |
 
-## Usages prévus
+## 6. Limites connues
 
-Recherche lexicale, amorçage de systèmes de traduction (dictionnaire bilingue,
-augmentation de données), création de prompts d'enregistrement, évaluation de modèles
-de reconnaissance vocale. **Non adapté** à l'entraînement direct d'un traducteur de phrases
-sans corpus parallèle de phrases complémentaire.
+- **Couverture** : celle d'un lexique d'apprentissage (~4 700 mots) : vocabulaire courant,
+  peu de termes techniques.
+- **Variation dialectale** absente du texte (parler de N'Djamena surtout) ; elle sera
+  documentée côté audio par la région du locuteur.
+- **Écriture arabe** non récupérable depuis le PDF.
+- **Sous-entrées non séparées** dans quelques définitions (ex. `ambaakir`, `beet`, `abad` 2).
+- **Conjugaison** : le lexique ne donne que la 3e pers. masc. sg. de l'inaccompli ; les
+  autres personnes sont dérivées par règle et restent à confirmer pour les verbes
+  irréguliers.
+- **Phrases générées** : grammaticalement contrôlées mais parfois peu naturelles (le gabarit
+  ignore le contexte), d'où la relecture humaine obligatoire avant enregistrement.
+- **Un seul relecteur** à ce jour pour les phrases : pas encore de mesure d'accord.
+- **Pas adapté** à l'entraînement direct d'un traducteur de phrases sans corpus parallèle
+  de phrases complémentaire.
 
-## Diffusion et maintenance
+## 7. Usages prévus et diffusion
 
-Voir [éthique et licences](05-ethique-licences.md). Versionnement via Git ; toute
-modification des données passe par le pipeline (pas d'édition manuelle des CSV de
-`data/processed/`).
+- **Usages prévus** : recherche lexicale, amorçage de systèmes de traduction (dictionnaire
+  bilingue, augmentation de données), création de phrases à enregistrer, évaluation de
+  modèles de reconnaissance vocale.
+- **Usages à éviter** : usage commercial des données lexicales sans accord de SIL Tchad ;
+  identification de locuteurs à partir de leur voix.
+- **Diffusion** : code public (MIT) ; corpus complet non publié tant que SIL Tchad n'a pas
+  donné son accord, y compris les découpages d'expressions ; seul un échantillon de
+  24 phrases est publié. Voir
+  [éthique et licences](05-ethique-licences.md).
 
-Les fichiers de `data/processed/` sont **générés** : une modification à la main y est écrasée
-à la reconstruction et peut casser le format (une virgule non protégée ajoute une colonne et
-`pandas` refuse alors de lire le fichier). Les routes prévues pour intervenir sur les données :
+## 8. Maintenance
+
+Versionnement via Git. Les fichiers de `data/processed/` sont **générés** : toute
+modification passe par le pipeline (`td-arabic build-corpus`), jamais par une édition à la
+main des CSV.
 
 | Je veux… | Où |
 | --- | --- |
-| ajouter un mot ou un sens | onglet *Couverture* → proposition → relecture (`data/resources/ajouts_corpus.csv`, cf. [3.5](03-generation-traduction.md)) |
-| corriger une définition mal extraite du PDF | `data/resources/corrections_entrees.csv` (`headword`, `avant`, `apres`) |
+| ajouter un mot ou un sens | onglet *Couverture* du studio → proposition → relecture (`data/resources/ajouts_corpus.csv`) |
+| corriger une définition mal extraite | `data/resources/corrections_entrees.csv` (`headword`, `avant`, `apres`) |
 | découper une définition contenant `expr.` | `data/resources/expressions_manuelles.csv` |
-
-Ensuite : `td-arabic build-corpus`.

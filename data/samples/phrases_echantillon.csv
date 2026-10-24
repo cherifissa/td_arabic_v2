@@ -1,0 +1,25 @@
+id,theme,template_id,fr,td,lemmes,hors_lexique,statut,source
+sal-41a9f717,salutations,sal-appel,"Bonjour, ma sœur !","Salaam, ya akhut!",akhut,,validee,gabarit
+sal-454980c7,salutations,sal-appel,"Bonjour, mon ami !","Salaam, ya rafiig!",rafiig,,validee,gabarit
+mar-98782c06,marche,mar-et,J'ai mangé de la boule et de la pâte de mil.,Ana akalt eech wa ajiine.,ajiine; akal; eech,,validee,gabarit
+mar-81e8eb02,marche,mar-et,Elle a mangé de la viande et du riz.,Hi akalat laham wa rizz.,akal; laham; rizz,,validee,gabarit
+jou-4f2a9df5,journee,jou-manger,J'ai mangé du riz.,Ana akalt rizz.,akal; rizz,,validee,gabarit
+jou-b9ba3327,journee,jou-boire,Tu bois de l'eau.,Inta tachrab almi.,almi; chirib,,validee,gabarit
+tem-173b49e9,temps,tem-wata,Il fait chaud.,Al-wata haamiye.,haami,,validee,gabarit
+tem-2565ede9,temps,tem-pluie,"Demain, il va pleuvoir.",Ambaakir al-matar yaji.,ambaakir,,validee,gabarit
+dep-878aa79d,deplacements,dep-aller,Elle va à l'école.,Hi tamchi al-lekkool.,lekkool; macha,,validee,gabarit
+dep-266351ed,deplacements,dep-aller,Tu vas à la maison.,Inta tamchi al-beet.,beet; macha,,validee,gabarit
+fam-2bbef071,famille,fam-verbe,Il aide le frère.,Hu yiʼaawin al-akhu.,aawan; akhu,,validee,gabarit
+fam-26e2374b,famille,fam-question,Est-ce qu'il visite la mère ?,Hu yuzuur al-amm?,amm; zaar,,validee,gabarit
+eco-f8b53ea4,ecole,eco-question,Est-ce que je lis le cahier ?,Ana nagri al-kaaye?,gara; kaaye,,validee,gabarit
+eco-c40c6875,ecole,eco-lire,Elle ouvre le livre.,Hi taftah al-kitaab.,fatah; kitaab,,validee,gabarit
+san-18545c85,sante,san-etat-m,Tu es malade.,Inta mardaan.,inta; mardaan,,validee,gabarit
+san-29f23ff5,sante,san-hopital,Je viens à l'hôpital.,Ana naji al-labtaan.,ja; labtaan,,validee,gabarit
+mai-c07b135d,maison,mai-prix,Combien coûte la chaise ?,Al-kursi be kam?,kursi,,validee,gabarit
+mai-131778d2,maison,mai-reparer,Je répare la table.,Ana niʼaddil al-tarabeeza.,addal; tarabeeza,,validee,gabarit
+pro-9cd8d076,programme,pro-hier-activite,"Hier, tu as travaillé.",Amis inta khadamt.,amis; khadam,,validee,gabarit
+pro-ab77fbd8,programme,pro-aller,"Demain, elle vient à l'école.",Ambaakir hi taji al-lekkool.,ambaakir; ja; lekkool,,validee,gabarit
+ani-8ba2d257,animaux,ani-question,Est-ce qu'il a nourri le chameau ?,Hu ayyach al-jamal?,ayyach; jamal,,validee,gabarit
+ani-b599e7ad,animaux,ani-adjectif,Le chameau est petit.,Al-jamal sakhayyar.,jamal; sakhayyar,,validee,gabarit
+cor-c4ccc757,corps,cor-laver,Je regarde la main.,Ana nanzur al-iid.,iid; nazar,,validee,gabarit
+cor-de216e37,corps,cor-laver,J'ai lavé la tête.,Ana khasalt al-raas.,khasal; raas,,validee,gabarit

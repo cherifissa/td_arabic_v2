@@ -48,3 +48,6 @@ data/dataset/
 *.tsv
 *.json
 *.jsonl
+
+# Exception : seul l'échantillon de phrases est publié (aucune paire du lexique SIL)
+!data/samples/phrases_echantillon.csv

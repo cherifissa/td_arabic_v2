@@ -11,13 +11,26 @@ fichiers de `data/interim/` et `data/processed/` il est envisager de :
    à des fins de recherche, en précisant la licence envisagée (ex. CC BY-NC-SA 4.0) ;
 3. citer systématiquement la source.
 
-En attendant, le dépôt peut être partagé **en privé** avec le laboratoire ; pour un dépôt
-public, exclure `data/raw/`, `data/interim/` et `data/processed/` (voir `.gitignore`,
-section « publication ») et fournir le pipeline permettant de les régénérer à partir du PDF.
+En attendant, le dépôt public ne contient que le code, la documentation et un
+**échantillon de 24 phrases** (`data/samples/`) ; aucune paire du lexique n'est publiée. `data/raw/`,
+`data/interim/`, `data/processed/` et tous les fichiers CSV / JSON hors `data/samples/`
+sont exclus par `.gitignore` ; le pipeline permet de les régénérer à partir du PDF.
+
+| Publié | Non publié |
+| --- | --- |
+| code (`src/`, `tests/`), documentation, gabarits `themes.yaml` | PDF source, sorties d'extraction, corpus complet |
+| échantillon `data/samples/phrases_echantillon.csv` (24 phrases) | paires du lexique, découpages d'expressions, banque de phrases complète, données de fine-tuning |
+| protocole éthique (ce document, formulaire, pseudonymisation) | enregistrements, profils des locuteurs, formulaires signés |
 
 Le code est sous licence MIT.
 
 ## 5.2 Données vocales : consentement et vie privée
+
+Documents du protocole :
+
+- [Formulaire de consentement éclairé](ethique/formulaire-consentement.md) (modèle à
+  compléter et à faire valider) ;
+- [Méthode de pseudonymisation](ethique/pseudonymisation.md).
 
 La voix est une donnée personnelle (RGPD si la collecte ou le traitement a lieu dans l'UE).
 
